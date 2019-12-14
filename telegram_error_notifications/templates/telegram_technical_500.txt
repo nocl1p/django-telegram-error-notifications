@@ -1,0 +1,8 @@
+{% if request %}
+Request Method: {{ request.META.REQUEST_METHOD }}
+Request URL: {{ request.get_raw_uri }}{% endif %}
+Django Version: {{ django_version_info }}
+Python Version: {{ sys_version_info }}
+Server time: {{server_time|date:"r"}}
+{% if frames %}
+{% if exception_type %}Exception Type: {{ exception_type }}{% if request %} at {{ request.path_info }}{% endif %}{% endif %}{% endif %}
