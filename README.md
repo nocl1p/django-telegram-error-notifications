@@ -1,9 +1,17 @@
 # Django Telegram Error Notifications
 
+[![Package version](https://img.shields.io/badge/pypi%20package-0.0.2-success)](https://pypi.org/project/django-telegram-error-notifications/)
+[![Status](https://img.shields.io/badge/status-beta-yellow)](https://img.shields.io/badge/status-beta-yellow)
+
 At first you have to register your bot first before using it. 
 Go to the [BotFather](https://telegram.me/BotFather) or find it in telegram, 
 then create new bot by sending the `/newbot` command. 
-Follow the steps until you get the username and token for your bot. 
+Follow the steps until you get the username and token for your bot.
+
+To install app perform the command:
+```shell script
+pip install django-telegram-error-notifications
+```
 
 Add application to your `INSTALLED_APPS`:
 ```python
