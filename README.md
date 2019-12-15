@@ -3,7 +3,12 @@
 At first you have to register your bot first before using it. 
 Go to the [BotFather](https://telegram.me/BotFather) or find it in telegram, 
 then create new bot by sending the `/newbot` command. 
-Follow the steps until you get the username and token for your bot. 
+Follow the steps until you get the username and token for your bot.
+
+To install app perform the command:
+```shell script
+pip install django-telegram-error-notifications
+```
 
 Add application to your `INSTALLED_APPS`:
 ```python
