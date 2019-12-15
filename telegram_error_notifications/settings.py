@@ -5,22 +5,22 @@ from django.conf import settings
 from django.utils.log import DEFAULT_LOGGING
 
 
-telegram_logging = deepcopy(DEFAULT_LOGGING)
+TELEGRAM_LOGGING = deepcopy(DEFAULT_LOGGING)
 
-allow_debug = settings.TELEGRAM_BOT_ALLOW_SEND_IN_DEBUG_MODE
+ALLOW_DEBUG = settings.TELEGRAM_BOT_ALLOW_SEND_IN_DEBUG_MODE
 
-telegram_logging.get('handlers').update(**{
+TELEGRAM_LOGGING.get('handlers').update(**{
     'telegram': {
         'level': 'ERROR',
-        'filters': ['require_debug_false'] if not allow_debug else None,
+        'filters': ['require_debug_false'] if not ALLOW_DEBUG else None,
         'class': 'telegram_error_notifications.handlers.TelegramHandler'
     }
 })
 
-telegram_logging\
+TELEGRAM_LOGGING\
     .get('loggers')\
     .get('django')\
     .get('handlers')\
     .append('telegram')
 
-setattr(settings, 'LOGGING', telegram_logging)
+setattr(settings, 'LOGGING', TELEGRAM_LOGGING)

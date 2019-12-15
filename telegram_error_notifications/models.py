@@ -26,8 +26,8 @@ class TelegramBot(models.Model):
         return url
 
     def send_message(self, message=''):
-        if message:
-            return requests.get(url=self.generate_send_message_url(message))
+        return requests.get(url=self.generate_send_message_url(message)) \
+            if message else None
 
     class Meta:
         verbose_name = 'Telegram Bot'
@@ -46,4 +46,3 @@ class ErrorMessage(models.Model):
     class Meta:
         verbose_name = 'Error Message'
         verbose_name_plural = 'Error Messages'
-

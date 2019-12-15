@@ -2,7 +2,7 @@ import json
 import requests
 from django.conf import settings
 
-telegram_api_url = "https://api.telegram.org/bot"
+TELEGRAM_API_URL = "https://api.telegram.org/bot"
 
 
 def get_parameters(body):
@@ -23,13 +23,14 @@ def get_parameters(body):
         chat_id = chat.get('id', None)
 
         return text, chat_id
+    return None
 
 
 def send_message(message, chat_id):
     data = {"chat_id": chat_id, "text": message, "parse_mode": "html"}
     return requests.post(
         '{0}{1}/sendMessage'.format(
-            telegram_api_url, settings.TELEGRAM_BOT_TOKEN), data=data)
+            TELEGRAM_API_URL, settings.TELEGRAM_BOT_TOKEN), data=data)
 
 
 def generate_web_hook_url():
@@ -40,6 +41,7 @@ def generate_web_hook_url():
             token, web_hook_url
         )
         return url
+    return None
 
 
 def generate_log_about_creation(bot_name, created=False):
@@ -65,13 +67,13 @@ def generate_log_about_web_hook(request):
 
 def get_exception_type(message):
     if isinstance(message, str):
-        if not len(message):
+        if not message:
             raise ValueError('The message should not be empty')
 
         for line in message.splitlines():
             if 'Exception Type' in line:
-                caption, exc_type = line.split(':')
-                exc, at = exc_type.split(' at ')
+                _, exc_type = line.split(':')
+                exc, _ = exc_type.split(' at ')
                 return exc.strip()
 
     raise ValueError('The message should be a string')

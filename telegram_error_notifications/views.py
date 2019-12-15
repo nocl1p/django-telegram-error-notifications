@@ -53,6 +53,7 @@ class BotView(View):
         if self.bot and self.bot.chat_id:
             message = '<b>I don\'t know this command</b>'
             return send_message(message, self.bot.chat_id)
+        return None
 
 
 def error_detail(request, slug=None):

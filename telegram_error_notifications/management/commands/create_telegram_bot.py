@@ -20,16 +20,18 @@ class Command(BaseCommand):
 
                 web_hook_url = bot_utils.generate_web_hook_url()
                 if web_hook_url:
-                    r = requests.get(url=web_hook_url)
+                    request = requests.get(url=web_hook_url)
                     self.stdout.write(self.style.SUCCESS(
                         'Webhook URL: {0}'.format(web_hook_url)))
                 else:
-                    r = None
+                    request = None
 
                 web_hook_message, error = \
-                    bot_utils.generate_log_about_web_hook(r)
-                self.stdout.write(self.style.SUCCESS(web_hook_message)) \
-                    if not error else \
+                    bot_utils.generate_log_about_web_hook(request)
+
+                if not error:
+                    self.stdout.write(self.style.SUCCESS(web_hook_message))
+                else:
                     self.stderr.write(self.style.ERROR(web_hook_message))
             return
 

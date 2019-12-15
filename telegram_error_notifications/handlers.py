@@ -18,18 +18,19 @@ APP_DIR = os.path.dirname(os.path.abspath(__file__))
 class TelegramExceptionReporter(ExceptionReporter):
     def get_telegram_traceback_text(self):
         with Path(APP_DIR,
-                  'templates', 'telegram_technical_500.txt').open() as fh:
-            t = DEBUG_ENGINE.from_string(fh.read())
+                  'templates', 'telegram_technical_500.txt').open() as tg_templ:
+            template = DEBUG_ENGINE.from_string(tg_templ.read())
 
-        c = Context(self.get_traceback_data(), autoescape=False, use_l10n=False)
-        return t.render(c)
+        context = Context(
+            self.get_traceback_data(), autoescape=False, use_l10n=False)
+        return template.render(context)
 
 
 class TelegramHandler(logging.Handler):
     def emit(self, record):
-        try:
+        if hasattr(record, 'request'):
             request = record.request
-        except Exception:
+        else:
             request = None
 
         no_exc_record = copy(record)
